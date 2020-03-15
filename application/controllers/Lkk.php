@@ -17,8 +17,9 @@ class Lkk extends CI_Controller
   {
     $result['datas'] = $this->M_lkk->get_data()->result();
     
-    $this->load->view('header');
-    $this->load->view('lkk/v_lkk', $result);
+    $this->load->view('headerLte');
+    $this->load->view('lkk/view_lkk');
+    // $this->load->view('lkk/view_lkk', $result);
   }
 
   function add_lkk()
@@ -29,7 +30,7 @@ class Lkk extends CI_Controller
 
   function save()
   {
-    $nama_lkk = $this->input->post('name');
+    $nama_lkk = $this->input->post('nama_lkk');
     $data = array(
       'name' => $nama_lkk
     );
@@ -41,6 +42,28 @@ class Lkk extends CI_Controller
 
   function data(){
     $data = $this->M_lkk->get_data()->result();
+    echo json_encode($data);
+  }
+
+  function get_edit($id){
+    $data = $this->M_lkk->get_edit($id);
+    echo json_encode($data);
+  }
+
+  function update_lkk(){
+    $id = $this->input->post('lkk_id');
+    $data = array(
+      'name' => $this->input->post('nama_lkk')
+    );
+
+    $result = $this->M_lkk->update_lkk($id, $data);
+    $msg['success'] = $result;
+    echo json_encode($msg);
+  }
+
+  function delete($id){
+    $data = $this->M_lkk->delete($id);
+
     echo json_encode($data);
   }
 }
