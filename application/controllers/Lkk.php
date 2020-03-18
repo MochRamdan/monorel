@@ -66,4 +66,10 @@ class Lkk extends CI_Controller
 
     echo json_encode($data);
   }
+
+  function get_lkk(){
+    $data['lkk'] = $this->M_lkk->get_lkk()->result_array();
+
+    echo json_encode($data);
+  }
 }

@@ -64,13 +64,8 @@
                 <div class="form-group">
                   <input type="hidden" name="pagu_id">
                   <label for="exampleFormControlSelect1">Nama LKK :</label>
-                  <select class="form-control" id="exampleFormControlSelect1">
-                    <option selected>-- Pilih --</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                  <select class="form-control" id="daftar_lkk">
+
                   </select>
                 </div>
                 <div class="form-group">
@@ -154,13 +149,48 @@
         });
       }
 
-      //click tombol tambah
+      //tambah data pagu
       $('#tbl-tambah').click(function() {
-        save_method = 'add';
-        $('#form')[0].reset();
-        $('#exampleModal').find('.modal-title').text('Form Atur Jumlah Pagu');
-        $('#exampleModal').modal('show');
-      })
+        $.ajax({
+          url: "<?= base_url() ?>Lkk/get_lkk",
+          type: "GET",
+          dataType: "JSON",
+          success: function(success) {
+
+            console.log(success);
+            var servCat = "";
+            var optsNik = "";
+            var optsName = "";
+
+            //loop data lkk
+            $.each(success.lkk, function(k, v) {
+              // set value for service category
+              var valServ = success.lkk[k].lkk_id;
+              var titleServ = success.lkk[k].name;
+              servCat += "<option value='" + valServ + "'>" + titleServ + "</option>";
+            });
+
+            //append to id
+            $('#daftar_lkk').append(servCat);
+
+            $('#form')[0].reset();
+            $('#exampleModal').find('.modal-title').text('Form Atur Jumlah Pagu');
+            $('#exampleModal').modal('show');
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            alert('Error Get Data From ajax');
+          }
+        })
+      });
+
+      //click tombol tambah
+      // $('#tbl-tambah').click(function() {
+      //   save_method = 'add';
+
+      //   $('#form')[0].reset();
+      //   $('#exampleModal').find('.modal-title').text('Form Atur Jumlah Pagu');
+      //   $('#exampleModal').modal('show');
+      // })
 
       //click tombol refresh
       $('#tbl-refresh').click(function() {
