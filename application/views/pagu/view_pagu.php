@@ -30,19 +30,11 @@
             <div class="card-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
-<<<<<<< HEAD
-                <tr>
-                  <th>Nama LKK</th>
-                  <th>Jumlah Pagu</th>
-                  <th>Aksi</th>
-                </tr>
-=======
                   <tr>
                     <th>Nama LKK</th>
                     <th>Jumlah Pagu</th>
                     <th>Aksi</th>
                   </tr>
->>>>>>> a882c2bf4124766a224f0c3d7af33ae25d65d232
                 </thead>
                 <tbody id="show_data">
 
@@ -72,13 +64,13 @@
                 <div class="form-group">
                   <input type="hidden" name="pagu_id">
                   <label for="exampleFormControlSelect1">Nama LKK :</label>
-                  <select class="form-control" id="daftar_lkk">
+                  <select class="form-control" id="daftar_lkk" name="daftar_lkk">
 
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="pagu" class="col-form-label">Jumlah Pagu :</label>
-                  <input type="number" class="form-control" id="pagu" name="pagu" placeholder="Jumlah Pagu">
+                  <input type="text" class="form-control" id="pagu" name="pagu" data-a-sign="Rp " data-a-dec="," data-a-sep="." placeholder="Jumlah Pagu">
                 </div>
               </form>
             </div>
@@ -123,11 +115,18 @@
   <!-- AdminLTE for demo purposes -->
   <script src="<?= base_url('assets/adminLTE/dist/js/demo.js') ?>"></script>
   <!-- page script -->
+
+  <!-- auto numeric -->
+  <script src="<?= base_url('assets/js/autoNumeric.js') ?>"></script>
+
   <script>
     $(function() {
       var save_method;
       //load function data
       load_data();
+
+      //rupiah
+      $('#pagu').autoNumeric('init');
 
       //dataTable
       $("#example1").DataTable();
@@ -144,7 +143,7 @@
             var i;
             for (i = 0; i < data.length; i++) {
               html += '<tr>' +
-                '<td>' + data[i].lkk_id + '</td>' +
+                '<td>' + data[i].name + '</td>' +
                 '<td>' + data[i].pagu + '</td>' +
                 '<td>' +
                 '<a href="javascript:;" class="btn btn-primary edit" data-toggle="tooltip" data-placement="top" title="Edit" data="' + data[i].pagu_id + '">Edit</a>' + ' ' +
@@ -159,13 +158,12 @@
 
       //tambah data pagu
       $('#tbl-tambah').click(function() {
+        save_method = 'add';
         $.ajax({
           url: "<?= base_url() ?>Lkk/get_lkk",
           type: "GET",
           dataType: "JSON",
           success: function(success) {
-
-            console.log(success);
             var servCat = "";
             var optsNik = "";
             var optsName = "";
@@ -191,15 +189,6 @@
         })
       });
 
-      //click tombol tambah
-      // $('#tbl-tambah').click(function() {
-      //   save_method = 'add';
-
-      //   $('#form')[0].reset();
-      //   $('#exampleModal').find('.modal-title').text('Form Atur Jumlah Pagu');
-      //   $('#exampleModal').modal('show');
-      // })
-
       //click tombol refresh
       $('#tbl-refresh').click(function() {
         load_data();
@@ -210,9 +199,9 @@
         var url;
 
         if (save_method == 'add') {
-          url = '<?= base_url("Lkk/save") ?>';
+          url = '<?= base_url("Pagu/save") ?>';
         } else {
-          url = '<?= base_url("Lkk/update_lkk") ?>';
+          url = '<?= base_url("Pagu/update_pagu") ?>';
         }
 
         $.ajax({
@@ -227,9 +216,11 @@
               $('#form')[0].reset();
               alert("Berhasil menyimpan");
               load_data();
+            }else{
+              alert(respon.success);
             }
 
-            load_data();
+            // load_data();
           },
           error: function() {
             alert('Could not add data');
@@ -237,30 +228,50 @@
         });
       })
 
-      //edit lkk
+      //edit pagu
       $('#show_data').on('click', '.edit', function() {
         save_method = 'update';
         var id = $(this).attr('data');
-        var url = "<?= base_url('Lkk/get_edit'); ?>/" + id;
+        var url = "<?= base_url('Pagu/get_edit'); ?>/" + id;
         $.ajax({
           url: url,
           method: 'GET',
           dataType: 'JSON',
           success: function(data) {
-            $('[name="lkk_id"]').val(data.lkk_id);
-            $('[name="nama_lkk"]').val(data.name);
-            $('#exampleModal').find('.modal-title').text('Edit LKK');
+
+            var servCat = "";
+            var optsNik = "";
+            var optsName = "";
+
+            //loop data lkk
+            $.each(data.lkk, function(k, v) {
+              // set value for service category
+              var valServ = data.lkk[k].lkk_id;
+              var titleServ = data.lkk[k].name;
+
+              if (data.lkk[k].lkk_id == data.nilai.lkk_id) {
+                servCat += "<option value='" + valServ + "' selected>" + titleServ + "</option>";
+              }else{
+                servCat += "<option value='" + valServ + "'>" + titleServ + "</option>";
+              }
+            });
+
+            //masukan ke form
+            $('#daftar_lkk').append(servCat);
+            $('[name="pagu_id"]').val(data.nilai.pagu_id);
+            $('[name="pagu"]').val(data.nilai.pagu);
+            $('#exampleModal').find('.modal-title').text('Edit Info Pagu');
             $('#exampleModal').modal('show');
           }
         })
       });
 
-      //delete lkk
+      //delete pagu
       $('#show_data').on('click', '.delete', function() {
         var id = $(this).attr('data');
         var conf = confirm("Yakin.. akan menghapus data ini?");
         if (conf) {
-          var url = "<?php echo base_url('Lkk/delete'); ?>/" + id;
+          var url = "<?php echo base_url('Pagu/delete'); ?>/" + id;
           $.ajax({
             url: url,
             method: 'GET',

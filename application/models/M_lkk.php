@@ -22,6 +22,11 @@ class M_lkk extends CI_Model
     return $this->db->get();
   }
 
+  function list_lkk(){
+    $this->db->from('tb_lkk'); 
+    return $this->db->get()->result();
+  }
+
   function get_edit($id){
     $this->db->from('tb_lkk');
     $this->db->where('lkk_id', $id);
