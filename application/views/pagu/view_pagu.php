@@ -32,6 +32,7 @@
                 <thead>
                 <tr>
                   <th>Nama LKK</th>
+                  <th>Jumlah Pagu</th>
                   <th>Aksi</th>
                 </tr>
                 </thead>
