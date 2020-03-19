@@ -18,4 +18,9 @@ class Pagu extends CI_Controller
   	$this->load->view('headerLte');
     $this->load->view('pagu/view_pagu');
   }
+
+  function data(){
+    $data=$this->M_pagu->get_data()->result();
+    echo json_encode($data);
+  }
 }

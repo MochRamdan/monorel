@@ -30,11 +30,19 @@
             <div class="card-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
+<<<<<<< HEAD
                 <tr>
                   <th>Nama LKK</th>
                   <th>Jumlah Pagu</th>
                   <th>Aksi</th>
                 </tr>
+=======
+                  <tr>
+                    <th>Nama LKK</th>
+                    <th>Jumlah Pagu</th>
+                    <th>Aksi</th>
+                  </tr>
+>>>>>>> a882c2bf4124766a224f0c3d7af33ae25d65d232
                 </thead>
                 <tbody id="show_data">
 
@@ -62,9 +70,15 @@
             <div class="modal-body">
               <form id="form">
                 <div class="form-group">
-                  <input type="hidden" name="lkk_id">
-                  <label for="nama_lkk" class="col-form-label">Nama Lkk:</label>
-                  <input type="text" class="form-control" id="nama_lkk" name="nama_lkk" placeholder="Masukan Nama LKK">
+                  <input type="hidden" name="pagu_id">
+                  <label for="exampleFormControlSelect1">Nama LKK :</label>
+                  <select class="form-control" id="daftar_lkk">
+
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="pagu" class="col-form-label">Jumlah Pagu :</label>
+                  <input type="number" class="form-control" id="pagu" name="pagu" placeholder="Jumlah Pagu">
                 </div>
               </form>
             </div>
@@ -94,138 +108,175 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
+  </div>
+  <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="<?= base_url('assets/adminLTE/plugins/jquery/jquery.min.js')?>"></script>
-<!-- Bootstrap 4 -->
-<script src="<?= base_url('assets/adminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
-<!-- DataTables -->
-<script src="<?= base_url('assets/adminLTE/plugins/datatables/jquery.dataTables.js')?>"></script>
-<script src="<?= base_url('assets/adminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.js')?>"></script>
-<!-- AdminLTE App -->
-<script src="<?= base_url('assets/adminLTE/dist/js/adminlte.min.js')?>"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?= base_url('assets/adminLTE/dist/js/demo.js')?>"></script>
-<!-- page script -->
-<script>
-  $(function () {
-    var save_method;
-    //load function data
-    load_data();
-
-    //dataTable
-    $("#example1").DataTable();
-
-    //fungsi tampil data
-    function load_data(){
-      $.ajax({
-        type  : 'ajax',
-        url   : '<?= base_url()?>Lkk/data',
-        async : false,
-        dataType : 'json',
-        success : function(data){
-          var html = '';
-          var i;
-          for(i=0; i<data.length; i++){
-            html += '<tr>'+
-                    '<td>'+data[i].name+'</td>'+
-                    '<td>'+
-                      '<a href="javascript:;" class="btn btn-primary edit" data-toggle="tooltip" data-placement="top" title="Edit" data="'+data[i].lkk_id+'">Edit</a>'+' '+
-                      '<a href="javascript:;" class="btn btn-danger delete" data-toggle="tooltip" data-placement="top" title="Hapus" data="'+data[i].lkk_id+'">Hapus</a>'+
-                    '</td>'+
-                    '</tr>';
-          }
-          $('#show_data').html(html);
-        }
-      });
-    }
-
-    //click tombol tambah
-    $('#tbl-tambah').click(function(){
-      save_method = 'add';
-      $('#form')[0].reset();
-      $('#exampleModal').find('.modal-title').text('Form Tambah LKK');
-      $('#exampleModal').modal('show');
-    })
-
-    //click tombol refresh
-    $('#tbl-refresh').click(function(){
+  <!-- jQuery -->
+  <script src="<?= base_url('assets/adminLTE/plugins/jquery/jquery.min.js') ?>"></script>
+  <!-- Bootstrap 4 -->
+  <script src="<?= base_url('assets/adminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+  <!-- DataTables -->
+  <script src="<?= base_url('assets/adminLTE/plugins/datatables/jquery.dataTables.js') ?>"></script>
+  <script src="<?= base_url('assets/adminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.js') ?>"></script>
+  <!-- AdminLTE App -->
+  <script src="<?= base_url('assets/adminLTE/dist/js/adminlte.min.js') ?>"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="<?= base_url('assets/adminLTE/dist/js/demo.js') ?>"></script>
+  <!-- page script -->
+  <script>
+    $(function() {
+      var save_method;
+      //load function data
       load_data();
-    })
 
-    //tombol simpan
-    $('#tombol-simpan').click(function() {
-      var url;
+      //dataTable
+      $("#example1").DataTable();
 
-      if (save_method == 'add') {
-        url = '<?= base_url("Lkk/save") ?>';
-      }else{
-        url = '<?= base_url("Lkk/update_lkk") ?>';
+      //fungsi tampil data
+      function load_data() {
+        $.ajax({
+          type: 'ajax',
+          url: '<?= base_url() ?>Pagu/data',
+          async: false,
+          dataType: 'json',
+          success: function(data) {
+            var html = '';
+            var i;
+            for (i = 0; i < data.length; i++) {
+              html += '<tr>' +
+                '<td>' + data[i].lkk_id + '</td>' +
+                '<td>' + data[i].pagu + '</td>' +
+                '<td>' +
+                '<a href="javascript:;" class="btn btn-primary edit" data-toggle="tooltip" data-placement="top" title="Edit" data="' + data[i].pagu_id + '">Edit</a>' + ' ' +
+                '<a href="javascript:;" class="btn btn-danger delete" data-toggle="tooltip" data-placement="top" title="Hapus" data="' + data[i].pagu_id + '">Hapus</a>' +
+                '</td>' +
+                '</tr>';
+            }
+            $('#show_data').html(html);
+          }
+        });
       }
 
-      $.ajax({
-        url: url,
-        method: 'post',
-        data: $('#form').serialize(),
-        dataType: 'json',
-        async: false,
-        success: function(respon) {
-          if (respon.success) {
-            $('#exampleModal').modal('hide');
+      //tambah data pagu
+      $('#tbl-tambah').click(function() {
+        $.ajax({
+          url: "<?= base_url() ?>Lkk/get_lkk",
+          type: "GET",
+          dataType: "JSON",
+          success: function(success) {
+
+            console.log(success);
+            var servCat = "";
+            var optsNik = "";
+            var optsName = "";
+
+            //loop data lkk
+            $.each(success.lkk, function(k, v) {
+              // set value for service category
+              var valServ = success.lkk[k].lkk_id;
+              var titleServ = success.lkk[k].name;
+              servCat += "<option value='" + valServ + "'>" + titleServ + "</option>";
+            });
+
+            //append to id
+            $('#daftar_lkk').append(servCat);
+
             $('#form')[0].reset();
-            alert("Berhasil menyimpan");
-            load_data();
+            $('#exampleModal').find('.modal-title').text('Form Atur Jumlah Pagu');
+            $('#exampleModal').modal('show');
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            alert('Error Get Data From ajax');
           }
-
-          load_data();
-        },
-        error: function() {
-          alert('Could not add data');
-        }
+        })
       });
-    })
 
-    //edit lkk
-    $('#show_data').on('click','.edit',function(){
-      save_method = 'update';
-      var id = $(this).attr('data');
-      var url = "<?= base_url('Lkk/get_edit');?>/"+id;
-      $.ajax({
-        url: url,
-        method: 'GET',
-        dataType: 'JSON',
-        success: function(data){
-          $('[name="lkk_id"]').val(data.lkk_id);
-          $('[name="nama_lkk"]').val(data.name);
-          $('#exampleModal').find('.modal-title').text('Edit LKK');
-          $('#exampleModal').modal('show');
-        }
+      //click tombol tambah
+      // $('#tbl-tambah').click(function() {
+      //   save_method = 'add';
+
+      //   $('#form')[0].reset();
+      //   $('#exampleModal').find('.modal-title').text('Form Atur Jumlah Pagu');
+      //   $('#exampleModal').modal('show');
+      // })
+
+      //click tombol refresh
+      $('#tbl-refresh').click(function() {
+        load_data();
       })
-    });
 
-    //delete lkk
-    $('#show_data').on('click','.delete',function(){
-      var id = $(this).attr('data');
-      var conf = confirm("Yakin.. akan menghapus data ini?");
-      if (conf) {
-        var url = "<?php echo base_url('Lkk/delete');?>/"+id;
+      //tombol simpan
+      $('#tombol-simpan').click(function() {
+        var url;
+
+        if (save_method == 'add') {
+          url = '<?= base_url("Lkk/save") ?>';
+        } else {
+          url = '<?= base_url("Lkk/update_lkk") ?>';
+        }
+
+        $.ajax({
+          url: url,
+          method: 'post',
+          data: $('#form').serialize(),
+          dataType: 'json',
+          async: false,
+          success: function(respon) {
+            if (respon.success) {
+              $('#exampleModal').modal('hide');
+              $('#form')[0].reset();
+              alert("Berhasil menyimpan");
+              load_data();
+            }
+
+            load_data();
+          },
+          error: function() {
+            alert('Could not add data');
+          }
+        });
+      })
+
+      //edit lkk
+      $('#show_data').on('click', '.edit', function() {
+        save_method = 'update';
+        var id = $(this).attr('data');
+        var url = "<?= base_url('Lkk/get_edit'); ?>/" + id;
         $.ajax({
           url: url,
           method: 'GET',
           dataType: 'JSON',
-          success: function(data){
-            alert(data);
-            //pakai ajax reload
-            load_data();
+          success: function(data) {
+            $('[name="lkk_id"]').val(data.lkk_id);
+            $('[name="nama_lkk"]').val(data.name);
+            $('#exampleModal').find('.modal-title').text('Edit LKK');
+            $('#exampleModal').modal('show');
           }
         })
-      }
-      return false;
-    });
+      });
 
-  });
-</script>
-</body>
-</html>
+      //delete lkk
+      $('#show_data').on('click', '.delete', function() {
+        var id = $(this).attr('data');
+        var conf = confirm("Yakin.. akan menghapus data ini?");
+        if (conf) {
+          var url = "<?php echo base_url('Lkk/delete'); ?>/" + id;
+          $.ajax({
+            url: url,
+            method: 'GET',
+            dataType: 'JSON',
+            success: function(data) {
+              alert(data);
+              //pakai ajax reload
+              load_data();
+            }
+          })
+        }
+        return false;
+      });
+
+    });
+  </script>
+  </body>
+
+  </html>

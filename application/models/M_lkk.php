@@ -51,4 +51,9 @@ class M_lkk extends CI_Model
     }
   }
 
+  function get_lkk(){
+    $this->db->from('tb_lkk');
+    return $this->db->get();
+  }
+
 }
