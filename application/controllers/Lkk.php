@@ -6,9 +6,9 @@ class Lkk extends CI_Controller
   public function __construct()
   {
     parent::__construct();
-    // if($this->session->userdata('logged_in') != TRUE ){
-    //   redirect("welcome");
-    // }
+    if($this->session->userdata('logged_in') != TRUE ){
+      redirect("Login");
+    }
     //load model here
     $this->load->model('M_lkk');
   }
@@ -22,11 +22,11 @@ class Lkk extends CI_Controller
     // $this->load->view('lkk/view_lkk', $result);
   }
 
-  function add_lkk()
-  {
-    $this->load->view('header');
-    $this->load->view('lkk/form_lkk');
-  }
+  // function add_lkk()
+  // {
+  //   $this->load->view('header');
+  //   $this->load->view('lkk/form_lkk');
+  // }
 
   function save()
   {

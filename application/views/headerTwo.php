@@ -201,33 +201,9 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?= base_url('Lkk')?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Data LKK</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?= base_url('Kategori')?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Kategori Realisasi</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?= base_url('Satuan')?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Satuan</p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="<?= base_url('Pagu')?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Pagu</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?= base_url('User')?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>User</p>
                 </a>
               </li>
             </ul>
