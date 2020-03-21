@@ -29,6 +29,9 @@ class Pagu extends CI_Controller
   {
   	$lkk_id = $this->input->post('daftar_lkk');
     $pagu = $this->input->post('pagu');
+
+    $pagu = preg_replace("/[^0-9]/", "", $pagu);
+
     $data = array(
     	'lkk_id' => $lkk_id,
       'pagu' => $pagu

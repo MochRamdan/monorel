@@ -67,9 +67,11 @@
                   <input type="text" class="form-control" id="username" name="username" placeholder="Masukan Username Baru">
                 </div>
                 <div class="form-group">
-                  <input type="hidden" name="admin_id">
-                  <label for="password" class="col-form-label">Password :</label>
-                  <input type="password" class="form-control" id="password" name="password" placeholder="Masukan password">
+                  <label for="password" class="col-form-label">Default Password :</label>
+                  <input type="text" class="form-control" id="password" name="" value="12345" disabled="disabled">
+                </div>
+                <div class="form-group">
+                  <input type="hidden" class="form-control" name="password" value="12345">
                 </div>
               </form>
             </div>
@@ -172,7 +174,7 @@
         if (save_method == 'add') {
           url = '<?= base_url("User/save") ?>';
         } else {
-          url = '<?= base_url("User/update_kategori") ?>';
+          url = '<?= base_url("User/update_user") ?>';
         }
 
         $.ajax({
@@ -191,7 +193,7 @@
               alert(respon.success);
             }
 
-            // load_data();
+            load_data();
           },
           error: function() {
             alert('Could not add data');
@@ -209,9 +211,8 @@
           method: 'GET',
           dataType: 'JSON',
           success: function(data) {
-            $('[name="kategori_id"]').val(data.kategori_id);
-            $('[name="nama_kategori"]').val(data.nama_kategori);
-            $('[name="nama_kategori"]').val(data.nama_kategori);
+            $('[name="admin_id"]').val(data.admin_id);
+            $('[name="username"]').val(data.username);
             $('#exampleModal').find('.modal-title').text('Edit Kategori Realisasi');
             $('#exampleModal').modal('show');
           }
@@ -223,7 +224,7 @@
         var id = $(this).attr('data');
         var conf = confirm("Yakin.. akan menghapus data ini?");
         if (conf) {
-          var url = "<?php echo base_url('Kategori/delete'); ?>/" + id;
+          var url = "<?php echo base_url('User/delete'); ?>/" + id;
           $.ajax({
             url: url,
             method: 'GET',

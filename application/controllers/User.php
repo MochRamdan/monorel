@@ -49,19 +49,29 @@ class User extends CI_Controller
     echo json_encode($data);
   }
 
-  function update_kategori(){
-    $id = $this->input->post('kategori_id');
+  function update_user(){
+    $id = $this->input->post('admin_id');
+    $username = $this->input->post('username');
+    $password = md5($this->input->post('password'));
+
+    if ($this->session->userdata['logged_in']['level'] == '1') 
+    {
+      $level = '2';
+    }
+
     $data = array(
-      'nama_kategori' => $this->input->post('nama_kategori')
+      'username' => $username,
+      'password' => $password,
+      'level' => $level
     );
 
-    $result = $this->M_kategori->update_kategori($id, $data);
+    $result = $this->M_user->update_user($id, $data);
     $msg['success'] = $result;
     echo json_encode($msg);
   }
 
   function delete($id){
-    $data = $this->M_kategori->delete($id);
+    $data = $this->M_user->delete($id);
 
     echo json_encode($data);
   }
