@@ -203,7 +203,13 @@
               <li class="nav-item">
                 <a href="<?= base_url('Pagu')?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Data Pagu</p>
+                  <p>Pagu</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('Realisasi')?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Realisasi</p>
                 </a>
               </li>
             </ul>

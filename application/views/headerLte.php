@@ -196,32 +196,38 @@
               <p>
                 Data
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">2</span>
+                <span class="badge badge-info right">6</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="<?= base_url('Pagu')?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pagu</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('Realisasi')?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Realisasi</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="<?= base_url('Lkk')?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Data LKK</p>
+                  <p>LKK</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="<?= base_url('Kategori')?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Kategori Realisasi</p>
+                  <p>Kategori</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="<?= base_url('Satuan')?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Satuan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?= base_url('Pagu')?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Data Pagu</p>
                 </a>
               </li>
               <li class="nav-item">

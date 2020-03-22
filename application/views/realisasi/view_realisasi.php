@@ -51,6 +51,7 @@
       </div><!-- /.container-fluid -->
     </section>
 
+    <!-- tabel realisasi -->
     <section id="tabel-realisasi" class="content">
       <div id="tabel-lkk" class="row">
         <div class="col-12">
@@ -60,18 +61,72 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="TABLE_1" class="table table-bordered table-striped example1">
                 <thead>
                   <tr>
+                    <th>#</th>
                     <th>Nama LKK</th>
                     <th>Pagu Anggaran</th>
                     <th>Realisasi</th>
-                    <th>% Realisasi</th>
+                    <th>Realisasi (%)</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody id="show_data">
+                  <?php 
+                  $no = 1;
+                  foreach ($anggaran as $key => $value) 
+                  {
+                    $sum = array_sum($value['anggaran']);
+                    $pagu = $value['pagu'][0];
+                    $persen_realisasi = ($sum/$pagu)*100;
 
+                    echo "<tr>";
+                    echo "<td>".$no."</td>";
+                    echo "<td>".$value['nama_lkk'][0]."</td>";
+                    echo "<td class='rupiah' data-a-sign='Rp ' data-a-dec='none' data-a-sep='.'>".$value['pagu'][0]."</td>";
+                    echo "<td class='rupiah' data-a-sign='Rp ' data-a-dec='none' data-a-sep='.'>".$sum."</td>";
+                    echo "<td>".$persen_realisasi."</td>";
+                    echo "<td>"."<a href='javascript:;' class='btn btn-info detail' data-toggle='tooltip' data-placement='top' title='Detail' data='".$value['pagu_id'][0]."'>Detail</a>"."</td>";
+                    echo "</tr>";
+                    $no++;
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+
+    <!-- table detail -->
+    <section id="tabel-detail" class="content">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title title-detail"><p class="title-lkk">Nama LKK</p> <span class="title-pagu rupiah" data-a-sign="Rp " data-a-dec="none" data-a-sep=".">Nilai Pagu Anggaran</span></h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="TABLE_2" class="table table-bordered table-striped example1">
+                <thead>
+                  <tr>
+                    <th>Tanggal</th>
+                    <th>Realisasi</th>
+                    <th>Volume</th>
+                    <th>Satuan</th>
+                    <th>Keterangan</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="show_detail">
+                  
                 </tbody>
               </table>
             </div>
@@ -102,6 +157,8 @@
             <form id="form">
               <div class="row">
                 <div class="col-md-6">
+                  <input class="form-control" type="hidden" id="realisasi_id" name="realisasi_id">
+
                   <div class="form-group">
                     <label>Nama LKK</label>
                     <select class="form-control select2" style="width: 100%" id="show-lkk" name="lkk">
@@ -213,81 +270,28 @@
   <script>
     $(document).ready(function() {
       var save_method;
-      //load function data
-      load_data();
 
       //hide form 
       $('#form-realisasi').hide();
 
       //rupiah
       $('#anggaran').autoNumeric('init');
+      $('.rupiah').autoNumeric('init');
 
       //dataTable
-      $("#example1").DataTable();
+      $("#TABLE_1").DataTable({
+        "scrollY": "200px",
+        "scrollCollapse": true,
+        "searching": true,
+        "paging": true
+      });
 
-      // fungsi tampil data
-      function load_data() {
-        $.ajax({
-          type: 'ajax',
-          url: '<?= base_url() ?>Realisasi/data',
-          async: false,
-          dataType: 'json',
-          success: function(data) {
-
-            console.log(data.realisasi);
-            console.log(data.pagu);
-
-            // $.each(data.pagu, function(i, item)
-            // {
-            //     alert(data.pagu[i].PageName);
-            // });
-
-            var html = '';
-            var jmlRealisasi = 0;
-            var persen = 0;
-
-            $.each(data.pagu, function (i, v)
-            {
-              $.each(data.realisasi, function (ii, vv)
-              {
-                if (data.pagu[i].pagu_id == data.realisasi[ii].pagu_id) 
-                {
-                  jmlRealisasi += data.realisasi[ii].anggaran;
-                }
-                var nilaiPagu = data.pagu[i].pagu;
-                persen = (jmlRealisasi/nilaiPagu)*100;
-                html += '<tr>'+
-                  '<td>' +data.pagu[i].name+ '</td>' +
-                  '<td>' +data.pagu[i].pagu+ '</td>' +
-                  '<td>' +jmlRealisasi+ '</td>' +
-                  '<td>' +persen+ '</td>' +
-                  '<td>' +
-                  '<a href="javascript:;" class="btn btn-primary edit" data-toggle="tooltip" data-placement="top" title="Edit" data="' + data.realisasi[ii].realisasi_id + '">Edit</a>' + ' ' +
-                  '<a href="javascript:;" class="btn btn-danger delete" data-toggle="tooltip" data-placement="top" title="Hapus" data="' + data.realisasi[ii].realisasi_id + '">Hapus</a>' +
-                  '</td>' +
-                '</tr>';
-              });
-            });
-
-            // var html = '';
-            // var i;
-            // for (i = 0; i < data.pagu.length; i++) {
-            //   html += '<tr>' +
-            //     '<td>' + data[i].name + '</td>' +
-            //     '<td>' + data[i].name + '</td>' +
-            //     '<td>' + data[i].name + '</td>' +
-            //     '<td>' + data[i].pagu + '</td>' +
-            //     '<td>' +
-            //     '<a href="javascript:;" class="btn btn-primary edit" data-toggle="tooltip" data-placement="top" title="Edit" data="' + data[i].pagu_id + '">Edit</a>' + ' ' +
-            //     '<a href="javascript:;" class="btn btn-danger delete" data-toggle="tooltip" data-placement="top" title="Hapus" data="' + data[i].pagu_id + '">Hapus</a>' +
-            //     '</td>' +
-            //     '</tr>';
-            // }
-            $('#show_data').html(html);
-          }
-
-        });
-      }
+      $("#TABLE_2").DataTable({
+        "scrollY": "200px",
+        "scrollCollapse": true,
+        "searching": false,
+        "paging": false
+      });
 
       //tambah data
       $('#tbl-tambah').click(function() {
@@ -332,6 +336,7 @@
 
             $('#form')[0].reset();
             $('#tabel-realisasi').hide();
+            $('#tabel-detail').hide();
             $('#form-realisasi').show();
           },
           error: function(jqXHR, textStatus, errorThrown) {
@@ -341,9 +346,9 @@
       });
 
       //click tombol refresh
-      $('#tbl-refresh').click(function() {
-        load_data();
-      })
+      // $('#tbl-refresh').click(function() {
+      //   load_data();
+      // })
 
       //tombol simpan
       $('#tombol-simpan').click(function() {
@@ -352,7 +357,7 @@
         if (save_method == 'add') {
           url = '<?= base_url("Realisasi/save") ?>';
         } else {
-          url = '<?= base_url("Realisasi/update") ?>';
+          url = '<?= base_url("Realisasi/update_detail") ?>';
         }
 
         $.ajax({
@@ -366,7 +371,7 @@
               $('#tabel-realisasi').show();
               $('#form-realisasi').hide();
               alert("Berhasil menyimpan");
-              load_data();
+              // load_data();
             }else{
               alert(respon.success);
             }
@@ -377,42 +382,120 @@
         });
       })
 
-      //edit pagu
-      $('#show_data').on('click', '.edit', function() {
+      //detail
+      $('#show_data').on('click', '.detail', function(){
+        var id = $(this).attr('data');
+        var url = "<?= base_url('Realisasi/get_detail')?>/" + id;
+
+        $.ajax({
+          url: url,
+          method: 'GET',
+          dataType: 'JSON',
+          success: function(respon){
+            var html = '';
+            var lkk = '';
+            var pagu = '';
+
+            var i;
+            for (i = 0; i < respon.detail.length; i++) {
+              lkk = respon.detail[i].name;
+              pagu = respon.detail[i].pagu;
+
+              html += '<tr>' +
+                '<td>' + respon.detail[i].tanggal + '</td>' +
+                '<td class="rupiah" data-a-sign="Rp " data-a-dec="none" data-a-sep=".">' + respon.detail[i].anggaran + '</td>' +
+                '<td>' + respon.detail[i].volume + '</td>' +
+                '<td>' + respon.detail[i].nama_satuan + '</td>' +
+                '<td>' + respon.detail[i].keterangan + '</td>' +
+                '<td>' +
+                '<a href="javascript:;" class="btn btn-primary edit" data-toggle="tooltip" data-placement="top" title="Edit" data="' + respon.detail[i].realisasi_id + '">Edit</a>' + ' ' +
+                '<a href="javascript:;" class="btn btn-danger delete" data-toggle="tooltip" data-placement="top" title="Hapus" data="' + respon.detail[i].realisasi_id + '">Hapus</a>' +
+                '</td>' +
+                '</tr>';
+            }
+            $('#tabel-detail').find('.title-lkk').text('LKK '+lkk);
+            $('#tabel-detail').find('.title-pagu').text('Pagu Anggaran '+pagu);
+            $('#show_detail').html(html);
+          },
+          error: function(){
+            alert('Could not get data');
+          }
+        })
+      })
+
+      //edit detail
+      $('#show_detail').on('click', '.edit', function() {
         save_method = 'update';
         var id = $(this).attr('data');
-        var url = "<?= base_url('Pagu/get_edit'); ?>/" + id;
+        var url = "<?= base_url('Realisasi/edit_detail'); ?>/" + id;
+
         $.ajax({
           url: url,
           method: 'GET',
           dataType: 'JSON',
           success: function(data) {
+            var optPagu = "";
+            var optKategori = "";
+            var optSatuan = "";
 
-            var servCat = "";
-            var optsNik = "";
-            var optsName = "";
+            var choicePagu = data.realisasi.pagu_id;
+            var choiceKategori = data.realisasi.kategori_id;
+            var choiceSatuan = data.realisasi.satuan_id;
 
-            //loop data lkk
-            $.each(data.lkk, function(k, v) {
-              // set value for service category
-              var valServ = data.lkk[k].lkk_id;
-              var titleServ = data.lkk[k].name;
+            //loop pagu
+            $.each(data.pagu, function(k, v) {
+              // set value pagu
+              var valPagu = data.pagu[k].pagu_id;
+              var titlePagu = data.pagu[k].name;
 
-              if (data.lkk[k].lkk_id == data.nilai.lkk_id) {
-                servCat += "<option value='" + valServ + "' selected>" + titleServ + "</option>";
+              if (valPagu == choicePagu) {
+                optPagu += "<option value='" + valPagu + "' selected>" + titlePagu + "</option>";
               }else{
-                servCat += "<option value='" + valServ + "'>" + titleServ + "</option>";
+                optPagu += "<option value='" + valPagu + "'>" + titlePagu + "</option>";
               }
             });
 
-            //masukan ke form
-            $('#show-lkk').append(servCat);
+            //loop kategori
+            $.each(data.kategori, function(k, v) {
+              // set value kategori
+              var valKategori = data.kategori[k].kategori_id;
+              var titleKategori = data.kategori[k].nama_kategori;
 
+              if (valKategori == choiceKategori) {
+                optKategori += "<option value='" + valKategori + "' selected>" + titleKategori + "</option>";
+              }else{
+                optKategori += "<option value='" + valKategori + "'>" + titleKategori + "</option>";
+              }
+            });
 
-            $('[name="pagu_id"]').val(data.nilai.pagu_id);
-            $('[name="pagu"]').val(data.nilai.pagu);
-            $('#exampleModal').find('.modal-title').text('Edit Info Pagu');
-            $('#exampleModal').modal('show');
+            //loop satuan
+            $.each(data.satuan, function(k, v) {
+              // set value for service category
+              var valSatuan = data.satuan[k].satuan_id;
+              var titleSatuan = data.satuan[k].nama_satuan;
+
+              if (valSatuan == choiceSatuan) {
+                optSatuan += "<option value='" + valSatuan + "' selected>" + titleSatuan + "</option>";
+              }else{
+                optSatuan += "<option value='" + valSatuan + "'>" + titleSatuan + "</option>";
+              }
+            });
+
+            //for form realisasi
+            $('[name="realisasi_id"]').val(data.realisasi.realisasi_id);
+            $('[name="volume"]').val(data.realisasi.volume);
+            $('[name="anggaran"]').val(data.realisasi.anggaran);
+            $('[name="keterangan"]').val(data.realisasi.keterangan);
+
+            //append to id
+            $('#show-lkk').append(optPagu);
+            $('#show-kategori').append(optKategori);
+            $('#show-satuan').append(optSatuan);
+
+            // $('#form')[0].reset();
+            $('#tabel-realisasi').hide();
+            $('#tabel-detail').hide();
+            $('#form-realisasi').show();
           },
           error: function(jqXHR, textStatus, errorThrown){
             alert('Error Get Data From ajax');
@@ -420,12 +503,12 @@
         })
       });
 
-      //delete pagu
-      $('#show_data').on('click', '.delete', function() {
+      //delete realisasi
+      $('#show_detail').on('click', '.delete', function() {
         var id = $(this).attr('data');
         var conf = confirm("Yakin.. akan menghapus data ini?");
         if (conf) {
-          var url = "<?php echo base_url('Pagu/delete'); ?>/" + id;
+          var url = "<?php echo base_url('Realisasi/delete'); ?>/" + id;
           $.ajax({
             url: url,
             method: 'GET',
@@ -433,7 +516,7 @@
             success: function(data) {
               alert(data);
               //pakai ajax reload
-              load_data();
+              // load_data();
             }
           })
         }
