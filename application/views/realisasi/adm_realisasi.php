@@ -17,10 +17,9 @@
       </div><!-- /.container-fluid -->
     </section>
 
-    <!-- Main content -->
-    <section class="content">
+    <!-- tombol header -->
+    <!-- <section class="content">
       <div class="container-fluid">
-        <!-- SELECT2 EXAMPLE -->
         <div class="card card-default">
           <div class="card-header">
             <h3 class="card-title">Tombol Add</h3>
@@ -30,26 +29,20 @@
               <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
             </div>
           </div>
-          <!-- /.card-header -->
           <div class="card-body">
             <div class="row">
               <div class="col-md-6">
                 <button id="tbl-refresh" class="btn btn-default">Refresh</button>
                 <button id="tbl-tambah" class="btn btn-success">Tambah</button>
               </div>
-              <!-- /.col -->
             </div>
-            <!-- /.row -->
           </div>
-          <!-- /.card-body -->
           <div class="card-footer">
             Tombol Aksi Realisasi Anggaran
           </div>
         </div>
-        <!-- /.card -->
-
-      </div><!-- /.container-fluid -->
-    </section>
+      </div>
+    </section> -->
 
     <!-- tabel realisasi -->
     <section id="tabel-realisasi" class="content">
@@ -64,7 +57,8 @@
               <table id="TABLE_1" class="table table-bordered table-striped example1">
                 <thead>
                   <tr>
-                    <th>#</th>
+                    <th>Tahun</th>
+                    <th>User</th>
                     <th>Nama LKK</th>
                     <th>Pagu Anggaran</th>
                     <th>Realisasi</th>
@@ -82,7 +76,8 @@
                     $persen_realisasi = ($sum/$pagu)*100;
 
                     echo "<tr>";
-                    echo "<td>".$no."</td>";
+                    echo "<td>".$value['tahun'][0]."</td>";
+                    echo "<td>".$value['username'][0]."</td>";
                     echo "<td>".$value['nama_lkk'][0]."</td>";
                     echo "<td class='rupiah' data-a-sign='Rp ' data-a-dec='none' data-a-sep='.'>".$value['pagu'][0]."</td>";
                     echo "<td class='rupiah' data-a-sign='Rp ' data-a-dec='none' data-a-sep='.'>".$sum."</td>";
@@ -122,7 +117,6 @@
                     <th>Volume</th>
                     <th>Satuan</th>
                     <th>Keterangan</th>
-                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody id="show_detail">
@@ -301,7 +295,7 @@
             var optKategori = "";
             var optSatuan = "";
 
-            // console.log(success.pagu);
+            console.log(success.pagu);
 
             //loop pagu
             $.each(success.pagu, function(k, v) {
@@ -406,10 +400,6 @@
                 '<td>' + respon.detail[i].volume + '</td>' +
                 '<td>' + respon.detail[i].nama_satuan + '</td>' +
                 '<td>' + respon.detail[i].keterangan + '</td>' +
-                '<td>' +
-                '<a href="javascript:;" class="btn btn-primary edit" data-toggle="tooltip" data-placement="top" title="Edit" data="' + respon.detail[i].realisasi_id + '">Edit</a>' + ' ' +
-                '<a href="javascript:;" class="btn btn-danger delete" data-toggle="tooltip" data-placement="top" title="Hapus" data="' + respon.detail[i].realisasi_id + '">Hapus</a>' +
-                '</td>' +
                 '</tr>';
             }
             $('#tabel-detail').find('.title-lkk').text('LKK '+lkk);

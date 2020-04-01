@@ -23,16 +23,15 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <button id="tbl-refresh" class="btn btn-default">Refresh</button>
-              <button id="tbl-tambah" class="btn btn-success">Tambah</button>
+              <h3 class="card-title">Tabel Pagu</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="TABLE_1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th>Tahun</th>
-                    <th>Nama LKK</th>
+                    <th>Username</th>
                     <th>Jumlah Pagu</th>
                     <th>Aksi</th>
                   </tr>
@@ -50,8 +49,37 @@
       </div>
       <!-- /.row -->
 
+      <!-- tabel detail pagu -->
+      <div id="tabel-lkk" class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Tabel Detail Pagu</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="TABLE_2" class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Tahun</th>
+                    <th>Nama LKK</th>
+                    <th>Nilai Pagu</th>
+                  </tr>
+                </thead>
+                <tbody id="show_detail">
+
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+
       <!-- modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -71,7 +99,7 @@
                 </div>
                 <div class="form-group">
                   <label for="pagu" class="col-form-label">Jumlah Pagu :</label>
-                  <input type="text" class="form-control pagu" id="pagu" name="pagu" data-a-sign="Rp " data-a-dec="none" data-a-sep="." placeholder="Jumlah Pagu">
+                  <input type="text" class="form-control" id="pagu" name="pagu" data-a-sign="Rp " data-a-dec="none" data-a-sep="." placeholder="Jumlah Pagu">
                 </div>
               </form>
             </div>
@@ -81,7 +109,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
     </section>
     <!-- /.content -->
@@ -127,39 +155,77 @@
       load_data();
 
       //rupiah
-      $('.pagu').autoNumeric('init');
+      $('.rupiah').autoNumeric('init');
 
       //dataTable
-      $("#example1").DataTable();
+      $("#TABLE_1").DataTable();
+      $('#TABLE_2').DataTable({
+        "paging": false,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": false,
+        "autoWidth": false,
+      });
 
       //fungsi tampil data
       function load_data() {
         $.ajax({
           type: 'ajax',
-          url: '<?= base_url() ?>Pagu/data',
+          url: '<?= base_url() ?>Pagu/data_adm',
           async: false,
           dataType: 'json',
           success: function(data) {
-
-            console.log(data);
-            
+            // console.log(data.pagu);
             var html = '';
-            var i;
-            for (i = 0; i < data.length; i++) {
+
+            $.each(data.pagu, function( i, l ){
               html += '<tr>' +
-                '<td>' + data[i].tahun + '</td>' +
-                '<td>' + data[i].name + '</td>' +
-                '<td class="pagu" data-a-sign="Rp " data-a-dec="none" data-a-sep=".">' + data[i].pagu + '</td>' +
+                '<td class="tahun">' + l.tahun[0] + '</td>' +
+                '<td>' + l.username[0] + '</td>' +
+                '<td class="rupiah" data-a-sign="Rp " data-a-dec="none" data-a-sep=".">' + l.pagu + '</td>' +
                 '<td>' +
-                '<a href="javascript:;" class="btn btn-primary edit" data-toggle="tooltip" data-placement="top" title="Edit" data="' + data[i].pagu_id + '">Edit</a>' + ' ' +
-                '<a href="javascript:;" class="btn btn-danger delete" data-toggle="tooltip" data-placement="top" title="Hapus" data="' + data[i].pagu_id + '">Hapus</a>' +
+                '<a href="javascript:;" class="btn btn-primary detail" data-toggle="tooltip" data-placement="top" title="Detail" data="' + l.admin_id[0] + '">Detail</a>' + ' ' +
                 '</td>' +
                 '</tr>';
-            }
+
+            });
             $('#show_data').html(html);
           }
         });
       }
+
+      //klik detail
+      $('#show_data').on('click', '.detail', function(){
+        var id = $(this).attr('data');
+        var url = "<?= base_url('Pagu/get_detail')?>/" + id;
+
+        $.ajax({
+          url: url,
+          method: 'GET',
+          dataType: 'JSON',
+          success: function(respon){
+            console.log(respon);
+            var html = '';
+            var i;
+
+            for (i = 0; i < respon.detail.length; i++) {
+
+              html += '<tr>' +
+                '<td>' + respon.detail[i].tahun + '</td>' +
+
+                '<td>' + respon.detail[i].name + '</td>' +
+
+                '<td class="rupiah" data-a-sign="Rp " data-a-dec="none" data-a-sep=".">' + respon.detail[i].pagu + '</td>' +
+                '</tr>';
+            }
+            $('#show_detail').html(html);
+          },
+          error: function(){
+            alert('Could not get data');
+          }
+        });
+      });
 
       //tambah data pagu
       $('#tbl-tambah').click(function() {
@@ -225,7 +291,7 @@
               alert(respon.success);
             }
 
-            load_data();
+            // load_data();
           },
           error: function() {
             alert('Could not add data');

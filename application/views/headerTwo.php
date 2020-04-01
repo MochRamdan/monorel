@@ -172,7 +172,7 @@
           <img src="<?= base_url('assets/adminLTE/dist/img/user2-160x160.jpg')?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Admin</a>
+          <a href="#" class="d-block"><?= $this->session->userdata['logged_in']['username']; ?></a>
         </div>
       </div>
 
@@ -215,14 +215,39 @@
             </ul>
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa fa-file"></i>
+              <p>
+                Laporan
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right">2</span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= base_url('Laporan/pagu_report')?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pagu</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('Laporan/realisasi_report')?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Realisasi</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- <li class="nav-item">
             <a href="pages/calendar.html" class="nav-link">
               <i class="nav-icon far fa fa-file"></i>
               <p>
                 Laporan
               </p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="<?= base_url('Login/logout')?>" class="nav-link">
               <i class="nav-icon far fa fa-power-off"></i>
