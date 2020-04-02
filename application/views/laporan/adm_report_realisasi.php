@@ -23,7 +23,7 @@
         <!-- SELECT2 EXAMPLE -->
         <div class="card card-default">
           <div class="card-header">
-            <h3 class="card-title">Form Laporan Pagu</h3>
+            <h3 class="card-title">Form Laporan Realisasi</h3>
 
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
@@ -38,6 +38,13 @@
                   <div class="form-group">
                     <label>Pilih Tahun</label>
                     <select class="form-control select2 tahun" style="width: 40%" id="tahun" name="tahun">
+
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Pilih User</label>
+                    <select class="form-control select2 user" style="width: 50%" id="user" name="user">
 
                     </select>
                   </div>
@@ -63,7 +70,7 @@
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
-            Form Laporan Pagu
+            Form Laporan Realisasi
           </div>
         </div>
         <!-- /.card -->
@@ -77,7 +84,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title title-detail">Data Pagu</h3>
+              <h3 class="card-title title-detail">Data Realisasi</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -85,6 +92,7 @@
                 <thead>
                   <tr>
                     <th>Tahun</th>
+                    <th>Username</th>
                     <th>Kategori</th>
                     <th>Tanggal</th>
                     <th>Volume</th>
@@ -171,11 +179,12 @@
       function load_data(){
         $.ajax({
           type: 'ajax',
-          url: '<?= base_url()?>Laporan/realisasi_form',
+          url: '<?= base_url()?>Laporan/adm_realisasi_form',
           async: false,
           dataType: 'json',
           success: function(data){
             var optYear = "";
+            var optUser = "";
             var optKategori = "";
 
             //loop year
@@ -183,6 +192,13 @@
               var valYear = data.year[i].tahun;
               var titleYear = data.year[i].tahun;
               optYear += "<option value='" + valYear + "'>" + titleYear + "</option>";
+            });
+
+            //loop user
+            $.each(data.user, function(k, v) {
+              var valUser = data.user[k].admin_id;
+              var titleUser = data.user[k].username;
+              optUser += "<option value='" + valUser + "'>" + titleUser + "</option>";
             });
 
             //loop kategori
@@ -194,6 +210,7 @@
             });
 
             $('.tahun').append(optYear);
+            $('.user').append(optUser);
             $('.kategori').append(optKategori);
 
             eliminate();
@@ -220,14 +237,16 @@
         e.preventDefault();
         var tahun = $('.tahun').val();
 
+        var user = $('.user').val();
+
         var kategori = $('.kategori').val();
 
-        var url = "<?= base_url('Laporan/get_realisasi') ?>";
+        var url = "<?= base_url('Laporan/adm_realisasi') ?>";
 
         $.ajax({
           url: url,
           method: 'post',
-          data: { tahun: tahun, kategori: kategori },
+          data: { tahun: tahun, user: user, kategori: kategori },
           dataType: 'json',
           async: false,
           success: function(respon){
@@ -241,6 +260,7 @@
               // console.log(v.username);
               html += '<tr>' +
                 '<td>' + v.tahun + '</td>' +
+                '<td>' + v.username + '</td>' +
                 '<td>' + v.nama_kategori + '</td>' +
                 '<td>' + v.tanggal + '</td>' +
                 '<td>' + v.volume + '</td>' +

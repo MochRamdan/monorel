@@ -343,11 +343,6 @@
         })
       });
 
-      //click tombol refresh
-      // $('#tbl-refresh').click(function() {
-      //   load_data();
-      // })
-
       //tombol simpan
       $('#tombol-simpan').click(function() {
         var url;

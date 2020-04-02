@@ -5,19 +5,19 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Laporan Realisasi</h1>
+            <h1>Laporan Pagu</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Laporan Realisasi</li>
+              <li class="breadcrumb-item active">Laporan Pagu</li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
 
-        <!-- section form realisasi -->
+    <!-- section form realisasi -->
     <section id="form-realisasi" class="content">
       <div class="container-fluid">
         <!-- SELECT2 EXAMPLE -->
@@ -43,8 +43,8 @@
                   </div>
 
                   <div class="form-group">
-                    <label>Pilih Kategori</label>
-                    <select class="form-control select2 kategori" style="width: 60%" id="kategori" name="kategori">
+                    <label>Pilih User</label>
+                    <select class="form-control select2 user" style="width: 60%" id="user" name="user">
 
                     </select>
                   </div>
@@ -85,15 +85,12 @@
                 <thead>
                   <tr>
                     <th>Tahun</th>
-                    <th>Kategori</th>
-                    <th>Tanggal</th>
-                    <th>Volume</th>
-                    <th>Satuan</th>
-                    <th>Anggaran</th>
-                    <th>Keterangan</th>
+                    <th>Username</th>
+                    <th>Nama LKK</th>
+                    <th>Jumlah Pagu</th>
                   </tr>
                 </thead>
-                <tbody id="show_realisasi">
+                <tbody id="show_pagu">
                   
                 </tbody>
               </table>
@@ -171,30 +168,27 @@
       function load_data(){
         $.ajax({
           type: 'ajax',
-          url: '<?= base_url()?>Laporan/realisasi_form',
+          url: '<?= base_url()?>Laporan/adm_pagu_form',
           async: false,
           dataType: 'json',
           success: function(data){
             var optYear = "";
-            var optKategori = "";
+            var optUser = "";
 
-            //loop year
             $.each(data.year, function(i, v) {
               var valYear = data.year[i].tahun;
               var titleYear = data.year[i].tahun;
               optYear += "<option value='" + valYear + "'>" + titleYear + "</option>";
             });
 
-            //loop kategori
-            $.each(data.kategori, function(k, v) {
-              // set value kategori
-              var valKategori = data.kategori[k].nama_kategori;
-              var titleKategori = data.kategori[k].nama_kategori;
-              optKategori += "<option value='" + valKategori + "'>" + titleKategori + "</option>";
+            $.each(data.user, function(i, v) {
+              var valUser = data.user[i].admin_id;
+              var titleUser = data.user[i].username;
+              optUser += "<option value='" + valUser + "'>" + titleUser + "</option>";
             });
 
             $('.tahun').append(optYear);
-            $('.kategori').append(optKategori);
+            $('.user').append(optUser);
 
             eliminate();
           },
@@ -204,6 +198,7 @@
         });
       }
 
+      //fungsi eliminasi data tahun yang sama
       function eliminate(){
         var seen = {};
         $('option').each(function() {
@@ -220,36 +215,29 @@
         e.preventDefault();
         var tahun = $('.tahun').val();
 
-        var kategori = $('.kategori').val();
+        var user = $('.user').val();
 
-        var url = "<?= base_url('Laporan/get_realisasi') ?>";
+        var url = "<?= base_url('Laporan/adm_pagu') ?>";
 
         $.ajax({
           url: url,
           method: 'post',
-          data: { tahun: tahun, kategori: kategori },
+          data: { tahun: tahun, user: user},
           dataType: 'json',
           async: false,
           success: function(respon){
+            console.log(respon);
+
             var html = '';
-
-            if (respon.length === 0) {
-              alert("Data Tidak Ditemukan");
-            }
-
             $.each(respon, function(i, v){
-              // console.log(v.username);
               html += '<tr>' +
                 '<td>' + v.tahun + '</td>' +
-                '<td>' + v.nama_kategori + '</td>' +
-                '<td>' + v.tanggal + '</td>' +
-                '<td>' + v.volume + '</td>' +
-                '<td>' + v.nama_satuan + '</td>' +
-                '<td>' + v.anggaran + '</td>' +
-                '<td>' + v.keterangan + '</td>' +
+                '<td>' + v.username + '</td>' +
+                '<td>' + v.name + '</td>' +
+                '<td>' + v.pagu + '</td>' +
                 '</tr>';
             });
-            $('#show_realisasi').html(html);
+            $('#show_pagu').html(html);
           },
           error: function(){
             alert('Could not get data');
@@ -258,12 +246,11 @@
 
       });
 
-      $("#show-excel").click(function(e){
-        e.preventDefault();
+      $("#show-excel").click(function(){
         $("#TABLE_1").table2excel({
           exclude:".noExl",
-          name:"laporan",
-          filename:"laporan",
+          name:"Worksheet Name",
+          filename:"SomeFile",
           fileext:".xls",
           preserveColors:true
         });
