@@ -29,7 +29,7 @@
               <div class="inner">
                 <h4 class="rupiah" data-a-sign="Rp " data-a-dec="none" data-a-sep="."><?= $sum_pagu; ?></h4>
 
-                <p>Pagu Anggaran</p>
+                <p>Pagu Anggaran di Tahun Sekarang</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -44,7 +44,7 @@
               <div class="inner">
                 <h4 class="rupiah" data-a-sign="Rp " data-a-dec="none" data-a-sep="."><?= $sum_realisasi; ?></h4>
 
-                <p>Realisasi Anggaran</p>
+                <p>Realisasi Anggaran di Tahun Sekarang</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -59,7 +59,7 @@
               <div class="inner">
                 <h4 class="rupiah" data-a-sign="Rp " data-a-dec="none" data-a-sep="."><?= $sisa_realisasi; ?></h4>
 
-                <p>Sisa Anggaran</p>
+                <p>Sisa Anggaran di Tahun Sekarang</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
@@ -74,7 +74,7 @@
               <div class="inner">
                 <h4><?= $bulat_persen;?><sup style="font-size: 20px">%</sup></h4>
 
-                <p>Persentase</p>
+                <p>Persentase Serapan di Tahun Sekarang</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>

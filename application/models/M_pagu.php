@@ -30,6 +30,25 @@ class M_pagu extends CI_Model
     return $this->db->get();
   }
 
+  function get_by_year($year){
+    $this->db->from('tb_pagu');
+    $this->db->join('tb_lkk', 'tb_lkk.lkk_id = tb_pagu.lkk_id');
+    $this->db->join('tb_admin', 'tb_admin.admin_id = tb_pagu.admin_id');
+    $this->db->where('tb_pagu.tahun', $year);
+
+    return $this->db->get();
+  }
+
+  function get_by_year_id($id, $year){
+    $this->db->from('tb_pagu');
+    $this->db->join('tb_lkk', 'tb_lkk.lkk_id = tb_pagu.lkk_id');
+    $this->db->join('tb_admin', 'tb_admin.admin_id = tb_pagu.admin_id');
+    $this->db->where('tb_pagu.admin_id', $id);
+    $this->db->where('tb_pagu.tahun', $year);
+
+    return $this->db->get();
+  }
+
   function get_data_adm(){
     $this->db->from('tb_pagu');
     $this->db->join('tb_admin', 'tb_admin.admin_id = tb_pagu.admin_id');

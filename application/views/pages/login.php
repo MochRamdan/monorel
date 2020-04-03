@@ -86,6 +86,9 @@
     </div>
     <!-- /.login-card-body -->
   </div>
+  <div>
+    <a href="<?= base_url();?>">Klik Disini Untuk Kembali</a>
+  </div>
 </div>
 <!-- /.login-box -->
 

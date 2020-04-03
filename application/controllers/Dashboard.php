@@ -9,6 +9,10 @@ class Dashboard extends CI_Controller
     if($this->session->userdata('logged_in') != TRUE ){
       redirect("Login");
     }
+    //helper
+    $this->load->helper('date');
+    date_default_timezone_set("Asia/Jakarta");
+
     //load model here
     $this->load->model('M_realisasi');
     $this->load->model('M_pagu');
@@ -57,16 +61,32 @@ class Dashboard extends CI_Controller
       }
     }
 
+    //get current year
+    $format = "%Y";
+    $year = mdate($format);
+
+    // $year = 2021;
+
     //logic untuk total keseluruhan
+    if ($level == 1) {
+      $pagu_year = $this->M_pagu->get_by_year($year)->result_array();
+
+      $realisasi_year = $this->M_realisasi->get_by_year($year)->result_array();
+    }else{
+      $pagu_year = $this->M_pagu->get_by_year_id($id, $year)->result_array();
+
+      $realisasi_year = $this->M_realisasi->get_by_year_id($id, $year)->result_array();
+    }
+
     //jika pagu kosong
-    if (!empty($pagu)) {
+    if (!empty($pagu_year)) {
       //loop pagu
-      foreach ($pagu as $k => $v) {
+      foreach ($pagu_year as $k => $v) {
         $getpagu[$k] = $v['pagu'];
       }
 
       //loop realisasi
-      foreach ($realisasi as $k => $v) {
+      foreach ($realisasi_year as $k => $v) {
         $getrealisasi[$k] = $v['anggaran'];
       }
       //menjumlahkan data
