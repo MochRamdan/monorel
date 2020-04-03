@@ -5,12 +5,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>LKK</h1>
+            <h1>DataTables</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">LKK</li>
+              <li class="breadcrumb-item active">DataTables</li>
             </ol>
           </div>
         </div>
@@ -100,10 +100,8 @@
 <script src="<?= base_url('assets/adminLTE/plugins/jquery/jquery.min.js')?>"></script>
 <!-- Bootstrap 4 -->
 <script src="<?= base_url('assets/adminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
-
 <!-- DataTables -->
 <script src="<?= base_url('assets/adminLTE/plugins/datatables/jquery.dataTables.js')?>"></script>
-
 <script src="<?= base_url('assets/adminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.js')?>"></script>
 <!-- AdminLTE App -->
 <script src="<?= base_url('assets/adminLTE/dist/js/adminlte.min.js')?>"></script>
