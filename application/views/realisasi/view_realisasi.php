@@ -60,7 +60,7 @@
               <h3 class="card-title">Tabel Realisasi</h3>
             </div>
             <!-- /.card-header -->
-            <div class="card-body">
+            <div class="card-body" style="overflow:auto;">
               <table id="TABLE_1" class="table table-bordered table-striped example1">
                 <thead>
                   <tr>
@@ -113,7 +113,7 @@
               <h3 class="card-title title-detail"><p class="title-lkk">Nama LKK</p> <span class="title-pagu rupiah" data-a-sign="Rp " data-a-dec="none" data-a-sep=".">Nilai Pagu Anggaran</span></h3>
             </div>
             <!-- /.card-header -->
-            <div class="card-body">
+            <div class="card-body" style="overflow:auto;">
               <table id="TABLE_2" class="table table-bordered table-striped example1">
                 <thead>
                   <tr>

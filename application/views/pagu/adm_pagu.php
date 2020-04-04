@@ -26,7 +26,7 @@
               <h3 class="card-title">Tabel Pagu</h3>
             </div>
             <!-- /.card-header -->
-            <div class="card-body">
+            <div class="card-body" style="overflow:auto;">
               <table id="TABLE_1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
@@ -57,7 +57,7 @@
               <h3 class="card-title">Tabel Detail Pagu</h3>
             </div>
             <!-- /.card-header -->
-            <div class="card-body">
+            <div class="card-body" style="overflow:auto;">
               <table id="TABLE_2" class="table table-bordered table-striped">
                 <thead>
                   <tr>

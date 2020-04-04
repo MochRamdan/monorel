@@ -87,7 +87,7 @@
               <h3 class="card-title title-detail">Data Realisasi</h3>
             </div>
             <!-- /.card-header -->
-            <div class="card-body">
+            <div class="card-body" style="overflow:auto;">
               <table id="TABLE_1" class="table table-bordered table-striped example1">
                 <thead>
                   <tr>
