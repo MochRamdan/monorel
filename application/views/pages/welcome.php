@@ -65,9 +65,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="features-icons-icon d-flex">
               <i class="icon-layers m-auto text-primary"></i>
             </div>
-            <h3>Dasar Hukum PIPPK</h3>
-            <p class="lead mb-0">Pemerintah Kota Bandung mengevaluasi hasil pelaksanaan Program Inovasi Pembangunan dan Pemberdayaan Kewilayahan (PIPPK) tahun 2016. Sekretaris Daerah Kota Bandung Yossi Irianto mengatakan, ketercapaian tujuan PIPPK harus dimulai dengan perencanaan yang baik. Evaluasi ini adalah dasar untuk merancang kegiatan PIPPK tahun 2017 agar lebih baik lagi.</p>
-            <a href="https://ppid.bandung.go.id/target-serapan-anggaran-pippk-tercapai/" class="btn btn-primary">Selanjutnya..</a>
+            <h3>Aturan Baru Tentang PIPPK</h3>
+            <p class="lead mb-0">PEMERINTAH Kota (Pemkot) Bandung membuka opsi untuk melakukan pengadaan pada Program Inovasi Pembangunan dan Pemberdayaan Kewilayahan (PIPPK) melalui pola swakelola tipe 3.</p>
+            <a href="http://humas.bandung.go.id/humas/layanan/pemkot-bandung-rilis-aturan-baru-tentang-pippk" class="btn btn-primary">Selanjutnya..</a>
           </div>
         </div>
         <div class="col-lg-6">
@@ -175,9 +175,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="col-md-6">
           <h4>Alamat Kantor :</h4>
           <p class="lead mb-0">Jalan Gedebage Selatan No.292 Kota Bandung,</p>
-          <p class="lead mb-0">Kode Pos 40294</p>
-          <p class="lead mb-0">Whatsapp Center : +62 ......</p>
+          <p class="lead mb-0">Whatsapp Center : +62 857 224 868 98</p>
           <p class="lead mb-0">Email : kecamatan.gedebage07@gmail.com</p>
+          <p class="lead mb-0">Kode Pos 40294</p>
         </div>
         <div class="col-md-6">
           <img src="<?= base_url('assets/startbootstrap/img/address.svg');?>" style="height: 200px; width: auto;">
@@ -213,17 +213,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
           <ul class="list-inline mb-0">
             <li class="list-inline-item mr-3">
-              <a href="#">
+              <a href="https://www.facebook.com/gedebagerancage/">
                 <i class="fab fa-facebook fa-2x fa-fw"></i>
               </a>
             </li>
             <li class="list-inline-item mr-3">
-              <a href="#">
+              <a href="https://twitter.com/kecgedebage">
                 <i class="fab fa-twitter-square fa-2x fa-fw"></i>
               </a>
             </li>
             <li class="list-inline-item">
-              <a href="#">
+              <a href="https://www.instagram.com/kecamatan_gedebage/">
                 <i class="fab fa-instagram fa-2x fa-fw"></i>
               </a>
             </li>
