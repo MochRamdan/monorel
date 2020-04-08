@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,17 +14,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <title>SI-Monorel</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="<?= base_url('assets/startbootstrap/vendor/bootstrap/css/bootstrap.min.css')?>" rel="stylesheet">
+  <link href="<?= base_url('assets/startbootstrap/vendor/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
 
   <!-- Custom fonts for this template -->
-  <link href="<?= base_url('assets/startbootstrap/vendor/fontawesome-free/css/all.min.css')?>" rel="stylesheet">
+  <link href="<?= base_url('assets/startbootstrap/vendor/fontawesome-free/css/all.min.css') ?>" rel="stylesheet">
 
-  <link href="<?= base_url('assets/startbootstrap/vendor/simple-line-icons/css/simple-line-icons.css')?>" rel="stylesheet" type="text/css">
+  <link href="<?= base_url('assets/startbootstrap/vendor/simple-line-icons/css/simple-line-icons.css') ?>" rel="stylesheet" type="text/css">
 
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" rel="stylesheet">
+
   <!-- Custom styles for this template -->
-  <link href="<?= base_url('assets/startbootstrap/css/landing-page.min.css')?>" rel="stylesheet">
+  <link href="<?= base_url('assets/startbootstrap/css/landing-page.min.css') ?>" rel="stylesheet">
 
 </head>
 
@@ -34,13 +36,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
       <a class="navbar-brand" href="#">SI-Monorel</a>
-      <a class="btn btn-primary" href="<?= base_url('Login');?>">Admin Here..</a>
+      <a class="btn btn-primary" href="<?= base_url('Login'); ?>">Admin Here..</a>
     </div>
   </nav>
 
   <!-- Masthead -->
   <header id="about" class="masthead text-white text-center bg-head">
-    <!-- <img src="<?//= base_url('assets/startbootstrap/img/statistic_chart.svg');?>"> -->
+    <!-- <img src="<? //= base_url('assets/startbootstrap/img/statistic_chart.svg');
+                    ?>"> -->
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
@@ -50,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a href="#showcase" class="btn btn-primary">klik disini untuk melihat</a>
         </div>
         <div class="col-xl-6 mx-auto">
-          <img src="<?= base_url('assets/startbootstrap/img/statistic_chart.svg');?>" style="height: 250px; width: auto;">
+          <img src="<?= base_url('assets/startbootstrap/img/statistic_chart.svg'); ?>" style="height: 250px; width: auto;">
         </div>
       </div>
     </div>
@@ -91,7 +94,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <div class="row no-gutters">
         <div class="col-lg-3">
           <div class="card" style="width: 18rem;">
-            <img src="<?= base_url('assets/startbootstrap/img/online_banking.svg');?>" class="card-img-top" alt="...">
+            <img src="<?= base_url('assets/startbootstrap/img/online_banking.svg'); ?>" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Pagu Anggaran</h5>
               <p class="card-text">Pagu Anggaran PIPPK Kecamatan Gedebage</p>
@@ -102,18 +105,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <div class="col-lg-3">
           <div class="card" style="width: 18rem;">
-            <img src="<?= base_url('assets/startbootstrap/img/wallet.svg');?>" class="card-img-top" alt="...">
+            <img src="<?= base_url('assets/startbootstrap/img/wallet.svg'); ?>" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Realisasi Anggaran</h5>
               <p class="card-text">Realisasi Anggaran PIPPK Kecamatan Gedebage</p>
-              <p class="btn btn-primary rupiah" data-a-sign="Rp " data-a-dec="none" data-a-sep="."><?= $sum_realisasi;?></p>
+              <p class="btn btn-primary rupiah" data-a-sign="Rp " data-a-dec="none" data-a-sep="."><?= $sum_realisasi; ?></p>
             </div>
           </div>
         </div>
 
         <div class="col-lg-3">
           <div class="card" style="width: 18rem;">
-            <img src="<?= base_url('assets/startbootstrap/img/finance.svg');?>" class="card-img-top" alt="...">
+            <img src="<?= base_url('assets/startbootstrap/img/finance.svg'); ?>" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Sisa Anggaran</h5>
               <p class="card-text">Sisa Anggaran PIPPK Kecamatan Gedebage</p>
@@ -124,11 +127,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <div class="col-lg-3">
           <div class="card" style="width: 18rem;">
-            <img src="<?= base_url('assets/startbootstrap/img/discount.svg');?>" class="card-img-top" alt="...">
+            <img src="<?= base_url('assets/startbootstrap/img/discount.svg'); ?>" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">% Serapan Anggaran</h5>
               <p class="card-text">Persentase Serapan Anggaran PIPPK Kecamatan Gedebage</p>
-              <p class="btn btn-primary"><?= $bulat_persen." %"; ?></p>
+              <p class="btn btn-primary"><?= $bulat_persen . " %"; ?></p>
             </div>
           </div>
         </div>
@@ -138,29 +141,72 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </section>
 
   <!-- Testimonials -->
-  <section class="testimonials text-center bg-light">
+  <section class="testimonials bg-light">
     <div class="container">
-      <h2 class="mb-5">Pendapat Masyarakat..</h2>
-      <div class="row">
-        <div class="col-lg-4">
+      <h2 class="mb-5 text-center">Pendapat Masyarakat..</h2>
+      <div class="row owl-carousel owl-theme">
+        <div class="col-lg-6">
           <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-            <img class="img-fluid rounded-circle mb-3" src="img/testimonials-1.jpg" alt="">
-            <h5>Margaret E.</h5>
-            <p class="font-weight-light mb-0">"This is fantastic! Thanks so much guys!"</p>
+            <img class="img-fluid rounded-circle mb-3" src="<?= base_url('assets/img/1.jpg') ?>" alt="">
+            <p class="font-weight">Bapak Taufik (Perawat)</p>
+            <p class="font-weight-light mb-0">“Kebutuhan SDM kesehatan sangat diharapkan
+              mengingat kami sering turun ke lapangan
+              sehingga yang jaga di Faskes terbatas”
+            </p>
           </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-6">
           <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-            <img class="img-fluid rounded-circle mb-3" src="img/testimonials-2.jpg" alt="">
-            <h5>Fred S.</h5>
-            <p class="font-weight-light mb-0">"Bootstrap is amazing. I've been using it to create lots of super nice landing pages."</p>
+            <img class="img-fluid rounded-circle mb-3" src="<?= base_url('assets/img/2.jpg') ?>" alt="">
+            <p class="font-weight">Bapak Yayat (Penjual Kopi)</p>
+            <p class="font-weight-light mb-0">“Saya ingin usaha lebih tenang dan berkembang
+              dengan diberikan kesempatan berusaha dan
+              perhatian dari pemerintah dalam bentuk
+              lainnya”
+            </p>
           </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-6">
           <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-            <img class="img-fluid rounded-circle mb-3" src="img/testimonials-3.jpg" alt="">
-            <h5>Sarah W.</h5>
-            <p class="font-weight-light mb-0">"Thanks so much for making these free resources available to us!"</p>
+            <img class="img-fluid rounded-circle mb-3" src="<?= base_url('assets/img/3.jpg') ?>" alt="">
+            <p class="font-weight">Kang Cahyadi (Wiraswasta)</p>
+            <p class="font-weight-light mb-0">“Mohon segera diperbaiki gorong - gorong
+              dan saluran air lainnya agar tidak
+              mudah banjir dan perbaikan jalan
+              akibat mobil overload”
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+            <img class="img-fluid rounded-circle mb-3" src="<?= base_url('assets/img/4.jpg') ?>" alt="">
+            <p class="font-weight">Bapak Hidayat (Ustad)</p>
+            <p class="font-weight-light mb-0">“Mohon diperhatikan kesejahteraan para
+              pemuka agama seperti guru ngaji,
+              marbot masjid dan sebagainya”
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+            <img class="img-fluid rounded-circle mb-3" src="<?= base_url('assets/img/5.jpg') ?>" alt="">
+            <p class="font-weight">Bang Erwan (Pegawai Swasta)</p>
+            <p class="font-weight-light mb-0">“Pembangunan drainase belum baik
+              dan efektif, masih ditemukan banyak
+              genangan, jadi ketika membangun
+              agar direncanakan dengan baik”
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+            <img class="img-fluid rounded-circle mb-3" src="<?= base_url('assets/img/6.jpg') ?>" alt="">
+            <p class="font-weight">Bapak Dasa (Tukang Ojek)</p>
+            <p class="font-weight-light mb-0">“Semoga lapangan kerja makin
+              mudah khususnya untuk anak
+              saya, karena saya tidak ingin dia
+              jadi seperti saya”
+            </p>
           </div>
         </div>
       </div>
@@ -180,7 +226,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <p class="lead mb-0">Kode Pos 40294</p>
         </div>
         <div class="col-md-6">
-          <img src="<?= base_url('assets/startbootstrap/img/address.svg');?>" style="height: 200px; width: auto;">
+          <img src="<?= base_url('assets/startbootstrap/img/address.svg'); ?>" style="height: 200px; width: auto;">
         </div>
       </div>
     </div>
@@ -234,16 +280,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </footer>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="<?= base_url('assets/startbootstrap/vendor/jquery/jquery.min.js')?>"></script>
-  <script src="<?= base_url('assets/startbootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
+  <script src="<?= base_url('assets/startbootstrap/vendor/jquery/jquery.min.js') ?>"></script>
+  <script src="<?= base_url('assets/startbootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
   <!-- auto numeric -->
   <script src="<?= base_url('assets/js/autoNumeric.js') ?>"></script>
 
   <script type="text/javascript">
-    //rupiah
-    $('.rupiah').autoNumeric('init');
+    $(document).ready(function() {
+      //rupiah
+      $('.rupiah').autoNumeric('init');
 
+      //owl carousel
+      $('.owl-carousel').owlCarousel();
+
+
+    });
   </script>
 
 </body>
