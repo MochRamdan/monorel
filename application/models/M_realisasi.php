@@ -13,6 +13,34 @@ class M_realisasi extends CI_Model
     return $this->db->get();
   }
 
+  function get_data_adm($id){
+    $this->db->from('tb_realisasi');
+    $this->db->join('tb_pagu', 'tb_pagu.pagu_id = tb_realisasi.pagu_id');
+    $this->db->join('tb_lkk', 'tb_lkk.lkk_id = tb_pagu.lkk_id');
+    $this->db->where('tb_realisasi.admin_id', $id);
+
+    return $this->db->get();
+  }
+
+  function get_by_year($year){
+    $this->db->from('tb_realisasi');
+    $this->db->join('tb_pagu', 'tb_pagu.pagu_id = tb_realisasi.pagu_id');
+    $this->db->join('tb_lkk', 'tb_lkk.lkk_id = tb_pagu.lkk_id');
+    $this->db->where('tb_pagu.tahun', $year);
+
+    return $this->db->get();
+  }
+
+  function get_by_year_id($id, $year){
+    $this->db->from('tb_realisasi');
+    $this->db->join('tb_pagu', 'tb_pagu.pagu_id = tb_realisasi.pagu_id');
+    $this->db->join('tb_lkk', 'tb_lkk.lkk_id = tb_pagu.lkk_id');
+    $this->db->where('tb_realisasi.admin_id', $id);
+    $this->db->where('tb_pagu.tahun', $year);
+
+    return $this->db->get();
+  }  
+
   function add_realisasi($data)
   {
     $this->db->insert('tb_realisasi', $data);

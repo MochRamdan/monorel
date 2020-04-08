@@ -8,7 +8,7 @@ class M_user extends CI_Model
   
   function get_data(){
     $this->db->from('tb_admin');
-    $this->db->order_by('admin_id', 'DESC');
+    // $this->db->order_by('admin_id', 'DESC');
     return $this->db->get();
   }
 

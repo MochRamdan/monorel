@@ -27,10 +27,11 @@
               <button id="tbl-tambah" class="btn btn-success">Tambah</button>
             </div>
             <!-- /.card-header -->
-            <div class="card-body">
+            <div class="card-body" style="overflow:auto;">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
+                    <th>Tahun</th>
                     <th>Nama LKK</th>
                     <th>Jumlah Pagu</th>
                     <th>Aksi</th>
@@ -70,7 +71,7 @@
                 </div>
                 <div class="form-group">
                   <label for="pagu" class="col-form-label">Jumlah Pagu :</label>
-                  <input type="text" class="form-control" id="pagu" name="pagu" data-a-sign="Rp " data-a-dec="none" data-a-sep="." placeholder="Jumlah Pagu">
+                  <input type="text" class="form-control pagu" id="pagu" name="pagu" data-a-sign="Rp " data-a-dec="none" data-a-sep="." placeholder="Jumlah Pagu">
                 </div>
               </form>
             </div>
@@ -126,7 +127,7 @@
       load_data();
 
       //rupiah
-      $('#pagu').autoNumeric('init');
+      $('.pagu').autoNumeric('init');
 
       //dataTable
       $("#example1").DataTable();
@@ -139,12 +140,16 @@
           async: false,
           dataType: 'json',
           success: function(data) {
+
+            console.log(data);
+            
             var html = '';
             var i;
             for (i = 0; i < data.length; i++) {
               html += '<tr>' +
+                '<td>' + data[i].tahun + '</td>' +
                 '<td>' + data[i].name + '</td>' +
-                '<td>' + data[i].pagu + '</td>' +
+                '<td class="pagu" data-a-sign="Rp " data-a-dec="none" data-a-sep=".">' + data[i].pagu + '</td>' +
                 '<td>' +
                 '<a href="javascript:;" class="btn btn-primary edit" data-toggle="tooltip" data-placement="top" title="Edit" data="' + data[i].pagu_id + '">Edit</a>' + ' ' +
                 '<a href="javascript:;" class="btn btn-danger delete" data-toggle="tooltip" data-placement="top" title="Hapus" data="' + data[i].pagu_id + '">Hapus</a>' +
@@ -220,7 +225,7 @@
               alert(respon.success);
             }
 
-            // load_data();
+            load_data();
           },
           error: function() {
             alert('Could not add data');

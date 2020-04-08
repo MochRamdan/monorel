@@ -17,7 +17,7 @@
       </div><!-- /.container-fluid -->
     </section>
 
-        <!-- Main content -->
+    <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <!-- SELECT2 EXAMPLE -->
@@ -60,7 +60,7 @@
               <h3 class="card-title">Tabel Realisasi</h3>
             </div>
             <!-- /.card-header -->
-            <div class="card-body">
+            <div class="card-body" style="overflow:auto;">
               <table id="TABLE_1" class="table table-bordered table-striped example1">
                 <thead>
                   <tr>
@@ -113,7 +113,7 @@
               <h3 class="card-title title-detail"><p class="title-lkk">Nama LKK</p> <span class="title-pagu rupiah" data-a-sign="Rp " data-a-dec="none" data-a-sep=".">Nilai Pagu Anggaran</span></h3>
             </div>
             <!-- /.card-header -->
-            <div class="card-body">
+            <div class="card-body" style="overflow:auto;">
               <table id="TABLE_2" class="table table-bordered table-striped example1">
                 <thead>
                   <tr>
@@ -279,18 +279,14 @@
       $('.rupiah').autoNumeric('init');
 
       //dataTable
-      $("#TABLE_1").DataTable({
-        "scrollY": "200px",
-        "scrollCollapse": true,
-        "searching": true,
-        "paging": true
-      });
-
-      $("#TABLE_2").DataTable({
-        "scrollY": "200px",
-        "scrollCollapse": true,
+      $("#TABLE_1").DataTable();
+      $('#TABLE_2').DataTable({
+        "paging": false,
+        "lengthChange": false,
         "searching": false,
-        "paging": false
+        "ordering": true,
+        "info": false,
+        "autoWidth": false,
       });
 
       //tambah data
@@ -304,6 +300,8 @@
             var optPagu = "";
             var optKategori = "";
             var optSatuan = "";
+
+            // console.log(success.pagu);
 
             //loop pagu
             $.each(success.pagu, function(k, v) {
@@ -345,11 +343,6 @@
         })
       });
 
-      //click tombol refresh
-      // $('#tbl-refresh').click(function() {
-      //   load_data();
-      // })
-
       //tombol simpan
       $('#tombol-simpan').click(function() {
         var url;
@@ -385,6 +378,7 @@
       //detail
       $('#show_data').on('click', '.detail', function(){
         var id = $(this).attr('data');
+
         var url = "<?= base_url('Realisasi/get_detail')?>/" + id;
 
         $.ajax({

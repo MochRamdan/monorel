@@ -9,6 +9,10 @@ class Realisasi extends CI_Controller
     if($this->session->userdata('logged_in') != TRUE ){
       redirect("Login");
     }
+    //helper
+    $this->load->helper('date');
+    date_default_timezone_set("Asia/Jakarta");
+
     //load model here
     $this->load->model('M_realisasi');
     $this->load->model('M_pagu');
@@ -18,30 +22,75 @@ class Realisasi extends CI_Controller
 
   function index()
   {
-    $realisasi = $this->M_realisasi->get_data()->result_array();
+    //ambil id dari session
+    $id = $this->session->userdata['logged_in']['id'];
+    //ambil level dari session
+    $level = $this->session->userdata['logged_in']['level'];
 
-    $pagu = $this->M_pagu->get_data()->result_array();
+    //get data from model
+    if ($level == 1) {
+      $realisasi = $this->M_realisasi->get_data()->result_array();
 
-    foreach ($pagu as $key => $value) {
+      $pagu = $this->M_pagu->get_pagu_adm()->result_array();
+    }else{
+      $realisasi = $this->M_realisasi->get_data_adm($id)->result_array();
 
-      foreach ($realisasi as $keyy => $valuee) {
-        if ($value['pagu_id'] == $valuee['pagu_id']) {
-          //data untuk to view
-          $data['anggaran'][$key]['pagu_id'][] = $valuee['pagu_id'];
-          $data['anggaran'][$key]['pagu'][] = $valuee['pagu'];
-          $data['anggaran'][$key]['nama_lkk'][] = $valuee['name'];
-          $data['anggaran'][$key]['realisasi_id'][] = $valuee['realisasi_id'];
-          $data['anggaran'][$key]['anggaran'][] = $valuee['anggaran'];
-        } 
+      $pagu = $this->M_pagu->get_data_pagu($id)->result_array();
+    }
+
+    //logic from view
+    if (empty($realisasi))
+    {
+      $data['anggaran'] = array();
+    }
+    else
+    {
+      foreach ($pagu as $key => $value) {
+
+        foreach ($realisasi as $keyy => $valuee) {
+          if ($value['pagu_id'] == $valuee['pagu_id']) {
+            //data untuk to view
+            $data['anggaran'][$key]['tahun'][] = $value['tahun'];
+            $data['anggaran'][$key]['username'][] = $value['username'];
+
+            $data['anggaran'][$key]['pagu_id'][] = $valuee['pagu_id'];
+            $data['anggaran'][$key]['pagu'][] = $valuee['pagu'];
+            $data['anggaran'][$key]['nama_lkk'][] = $valuee['name'];
+            $data['anggaran'][$key]['realisasi_id'][] = $valuee['realisasi_id'];
+            $data['anggaran'][$key]['anggaran'][] = $valuee['anggaran'];
+          } 
+        }
       }
     }
 
-  	$this->load->view('headerLte');
-    $this->load->view('realisasi/view_realisasi',$data);
+    //kondisi level untuk header
+    if ($level == 1) 
+    {
+      $this->load->view('headerLte');
+      $this->load->view('realisasi/adm_realisasi',$data);
+    }
+    else
+    {
+      $this->load->view('headerTwo');
+      $this->load->view('realisasi/view_realisasi',$data);
+    }
   }
 
   function get_realisasi(){
-    $data['pagu'] = $this->M_pagu->get_data()->result();
+    //id session
+    $id = $this->session->userdata['logged_in']['id'];
+
+    // year now
+    $format = "%Y";
+    $year = mdate($format);
+
+    //set multiple where
+    $multipleWhere = array(
+      'tb_pagu.admin_id' => $id,
+      'tahun' => $year
+    );
+
+    $data['pagu'] = $this->M_pagu->get_data($multipleWhere)->result();
 
     $data['kategori'] = $this->M_kategori->get_data()->result();
 
@@ -51,7 +100,9 @@ class Realisasi extends CI_Controller
   }
 
   function edit_detail($id){
-    $data['pagu'] = $this->M_pagu->get_data()->result();
+    $id_sess = $this->session->userdata['logged_in']['id']; 
+
+    $data['pagu'] = $this->M_pagu->get_data_pagu($id_sess)->result();
 
     $data['kategori'] = $this->M_kategori->get_data()->result();
 
@@ -89,6 +140,8 @@ class Realisasi extends CI_Controller
 
   function save()
   {
+    //get session id
+    $id = $this->session->userdata['logged_in']['id'];
   	$lkk = $this->input->post('lkk');
     $kategori = $this->input->post('kategori');
     $satuan = $this->input->post('satuan');
@@ -100,6 +153,7 @@ class Realisasi extends CI_Controller
     $anggaran = preg_replace("/[^0-9]/", "", $anggaran);
 
     $data = array(
+      'admin_id' => $id,
     	'pagu_id' => $lkk,
       'kategori_id' => $kategori,
       'satuan_id' => $satuan,
@@ -130,6 +184,8 @@ class Realisasi extends CI_Controller
   }
 
   function update_detail(){
+    $id_sess = $this->session->userdata['logged_in']['id']; 
+
   	$id = $this->input->post('realisasi_id');
 
   	$lkk = $this->input->post('lkk');
@@ -143,6 +199,7 @@ class Realisasi extends CI_Controller
     $anggaran = preg_replace("/[^0-9]/", "", $anggaran);
 
     $data = array(
+      'admin_id' => $id_sess,
       'pagu_id' => $lkk,
       'kategori_id' => $kategori,
       'satuan_id' => $satuan,

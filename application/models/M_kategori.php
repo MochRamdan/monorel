@@ -8,7 +8,7 @@ class M_kategori extends CI_Model
   
   function get_data(){
     $this->db->from('tb_kategori');
-    $this->db->order_by('kategori_id', 'DESC');
+    // $this->db->order_by('kategori_id', 'DESC');
     return $this->db->get();
   }
 
