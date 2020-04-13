@@ -155,14 +155,14 @@
             </ul>
           </li>
 
-          <!-- <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
-              <i class="nav-icon far fa fa-file"></i>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa fa-download"></i>
               <p>
-                Laporan
+                Unduh Panduan
               </p>
             </a>
-          </li> -->
+          </li>
 
           <li class="nav-item">
             <a href="<?= base_url('Login/logout')?>" class="nav-link">

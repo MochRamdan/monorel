@@ -97,11 +97,12 @@ class Dashboard extends CI_Controller
         //persentase data
         $persen_realisasi = ($data['sum_realisasi']/$data['sum_pagu'])*100;
         $data['bulat_persen'] = number_format($persen_realisasi,2);
+        //selisih data
+        $data['sisa_realisasi'] = ($data['sum_pagu']-$data['sum_realisasi']);
       }else{
         $data['sum_realisasi'] = 0;
         $data['bulat_persen'] = 0;
-        //selisih data
-        $data['sisa_realisasi'] = ($data['sum_pagu']-$data['sum_realisasi']);
+        $data['sisa_realisasi'] = $data['sum_pagu'];
       }
       
     }else{
