@@ -84,20 +84,26 @@ class Dashboard extends CI_Controller
       foreach ($pagu_year as $k => $v) {
         $getpagu[$k] = $v['pagu'];
       }
-
-      //loop realisasi
-      foreach ($realisasi_year as $k => $v) {
-        $getrealisasi[$k] = $v['anggaran'];
-      }
-      //menjumlahkan data
+      //menjumlahkan data pagu
       $data['sum_pagu'] = array_sum($getpagu);
-      $data['sum_realisasi'] = array_sum($getrealisasi);
 
-      //selisih data
-      $data['sisa_realisasi'] = ($data['sum_pagu']-$data['sum_realisasi']);
-      //persentase data
-      $persen_realisasi = ($data['sum_realisasi']/$data['sum_pagu'])*100;
-      $data['bulat_persen'] = number_format($persen_realisasi,2);
+      if (!empty($realisasi_year)) {
+        //loop realisasi
+        foreach ($realisasi_year as $k => $v) {
+          $getrealisasi[$k] = $v['anggaran'];
+        }
+        //menjumlahkan data realisasi
+        $data['sum_realisasi'] = array_sum($getrealisasi);
+        //persentase data
+        $persen_realisasi = ($data['sum_realisasi']/$data['sum_pagu'])*100;
+        $data['bulat_persen'] = number_format($persen_realisasi,2);
+      }else{
+        $data['sum_realisasi'] = 0;
+        $data['bulat_persen'] = 0;
+        //selisih data
+        $data['sisa_realisasi'] = ($data['sum_pagu']-$data['sum_realisasi']);
+      }
+      
     }else{
       $data['sum_pagu'] = 0;
       $data['sum_realisasi'] = 0;
