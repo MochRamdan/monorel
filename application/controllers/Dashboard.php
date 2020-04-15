@@ -125,4 +125,8 @@ class Dashboard extends CI_Controller
     $this->load->view('dashboard/dashboard', $data);
     $this->load->view('footerLte');
   }
+
+  public function download(){
+    force_download('assets/files/PANDUAN.docx', NULL);
+  }
 }
